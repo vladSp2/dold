@@ -106,7 +106,7 @@ private:
     array < uint8_t, 3 > m_Data{};
 };
 
-uint24_t ntohu(uint24_t const net) {
+uint24_t ntoh24(uint24_t const net) {
     uint8_t data[3] = {};
     memcpy(&data, &net, sizeof(data));
 
