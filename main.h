@@ -2,6 +2,7 @@
 
 #include <bit>
 #include <array>
+#include <string.h>
 
 using namespace std;
 struct uint24_t
@@ -95,11 +96,21 @@ struct uint24_t
     return (*this) = (*this >> other);
   }
 
-  constexpr operator    uint32_t () const noexcept
+  constexpr operator uint32_t () const noexcept
   {
     return ((m_Data[hibyte] << 16) | m_Data[1] << 8 | m_Data[lobyte]);
   }
+  
 
 private:
     array < uint8_t, 3 > m_Data{};
 };
+
+uint24_t ntohu(uint24_t const net) {
+    uint8_t data[3] = {};
+    memcpy(&data, &net, sizeof(data));
+
+    return ((uint24_t) data[2] << 0)
+         | ((uint24_t) data[1] << 8)
+         | ((uint24_t) data[0] << 16);
+}
