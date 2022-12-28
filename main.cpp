@@ -55,7 +55,8 @@ func (uint24_t counter)
     }
     
 
-    if(!work_deque.empty()){
+
+    if(!work_deque.empty() && iter_counter == 0){
         auto itr = find(work_deque.begin(), work_deque.end(), wait_couter);
         if(itr != work_deque.end()){
         
