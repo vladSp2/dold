@@ -16,7 +16,7 @@ deque < uint24_t > work_deque;
 
 uint24_t counter_;
 
-#define MAX_ITER 10
+#define MAX_ITER 3
 uint8_t iter_counter = 0;
 
 void
@@ -31,20 +31,20 @@ func (uint24_t counter)
   }
   
   //нужен ли он?
-  uint24_t wait_couter = counter_ + 1;
+  //uint24_t wait_couter = counter_ + 1;
   
-  if (wait_couter == counter)
+  if (counter_ + 1 == counter)
     work_deque.push_front(counter);
-  else if(counter > wait_couter || wait_couter != 0)
+  else if(counter > counter_ + 1 || counter_ + 1 != 0)
     work_deque.push_back(counter);
   else
     cout << "error" << endl;
     
 
-  while (!work_deque.empty () && wait_couter == work_deque.front())
+  while (!work_deque.empty () && counter_ + 1 == work_deque.front())
     {
         counter_ = work_deque.front();
-        wait_couter = counter_+1;
+        //wait_couter = counter_+1;
     
         //функция обработки
         cout << "send: " << work_deque.front() << endl;
@@ -55,9 +55,8 @@ func (uint24_t counter)
     }
     
 
-
     if(!work_deque.empty() && iter_counter == 0){
-        auto itr = find(work_deque.begin(), work_deque.end(), wait_couter);
+        auto itr = find(work_deque.begin(), work_deque.end(), counter_ + 1);
         if(itr != work_deque.end()){
         
             ///поставить найденный элемент в начало
@@ -85,8 +84,8 @@ int main ()
       func (counter[i]);
     }
 
-    for (size_t i = 0; i != work_deque.size (); ++i)
-        cout << work_deque[i] <<endl;
+    for (uint24_t el: work_deque)
+        cout << el <<endl;
 
   return 0;
 }
